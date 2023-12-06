@@ -1,7 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const fs = require("fs");
 const path = require("path");
-const bcrypt = require('bcrypt');
 
 const jsonPath = path.join(process.cwd(), "data", "users.json");
 
@@ -31,14 +30,11 @@ const writeData = (data) => {
 exports.createUser = async (email, password) => {
   try {
     const users = await readData();
-
     const matched = users.find((u) => u.email === email);
-
     if (matched) {
       throw new Error("User Already Exist!");
     } else {
-      const hashPass = await bcrypt.hash(password , 12);
-      await writeData([...users, { email, hashPass, userId: uuidv4() }]);
+      await writeData([...users, { email, password, userId: uuidv4() }]);
       return "Successfully created";
     }
   } catch (err) {
