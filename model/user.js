@@ -44,9 +44,7 @@ exports.createUser = async (email, password) => {
 exports.findUser = async (email) => {
   try {
     const users = await readData();
-
     const matched = users.find((u) => u.email === email);
-
     return matched;
   } catch (err) {
     throw err;
