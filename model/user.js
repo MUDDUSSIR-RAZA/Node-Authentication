@@ -17,13 +17,12 @@ const readData = () => {
 
 const writeData = (data) => {
   return new Promise((resolve, reject) => {
-    9 *
-      fs.writeFile(jsonPath, JSON.stringify(data), (err) => {
-        if (err) {
-          return reject(err);
-        }
-        resolve();
-      });
+    fs.writeFile(jsonPath, JSON.stringify(data), (err) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve();
+    });
   });
 };
 
