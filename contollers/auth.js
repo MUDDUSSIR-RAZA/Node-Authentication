@@ -16,9 +16,10 @@ exports.createUser = async (email, password) => {
 exports.login = async (email, password) => {
   try {
     const user = await findUser(email);
-    const result = bcrypt.compare(password, !!user && user.password);
+    console.log(user);
+    const result = await bcrypt.compare(password, user.password);
     console.log(result);
-    if (result) {
+    if (!!user && result) {
       var token = jwt.sign({ email }, SECRET_KEY, { expiresIn: "1h" });
       return {token};
     }
